@@ -1,36 +1,38 @@
-import { useState } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import ProductCard from './components/productCard'
+import HomePage from './pages/homePage'
+import LoginPage from './pages/loginPage'
+import RegisterPage from './pages/registerPage'
+import AdminPage from './pages/adminPage'
+import { Toaster } from 'react-hot-toast'
+import CartPage from './pages/cart'
+import { GoogleOAuthProvider } from '@react-oauth/google'
+import ForgotPasswordPage from './pages/forgotPasswordPage'
+import MyOrdersPage from './pages/orderPage'
+import MainLayout from './components/mainLayout'
+import AdminUserPage from './pages/admin/adminUsersPage'
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
+ 
   return (
-    <>
-      <ProductCard name ="Gaming Laptop" des = "Intel i7 | 16GB RAM | 512GB SSD"price = "$1,199.99" image = "https://images.pexels.com/photos/18105/pexels-photo.jpg"/>
-
-        <ProductCard
-        name="Mechanical Keyboard"
-        des="RGB Backlight | Blue Switches"
-        price="$89.99"
-        image="https://images.pexels.com/photos/4792729/pexels-photo-4792729.jpeg"
-      />
-
-       <ProductCard
-        name="Gaming Mouse"
-        des="16000 DPI | RGB | Wireless"
-        price="$49.99"
-        image="https://images.pexels.com/photos/3862636/pexels-photo-3862636.jpeg"
-      />
-
-      <ProductCard
-        name="4K Monitor"
-        des="27-inch | 144Hz | HDR"
-        price="$329.99"
-        image="https://images.pexels.com/photos/572056/pexels-photo-572056.jpeg"
-      />
-
-    </>
+  <GoogleOAuthProvider clientId='553829282478-78o8spsqnnhd4g6r9img8t4cfoaem74o.apps.googleusercontent.com'>
+    <BrowserRouter>
+    <Toaster position='top-right'></Toaster>
+    <div className='w-full h-screen bg-primary text-secondary'>
+      <Routes>
+        <Route path="/*" element ={<HomePage/>}></Route>
+        <Route path="/login" element ={<LoginPage/>}></Route>
+        <Route path="/register" element ={<RegisterPage/>}></Route>
+        <Route path="/admin/*" element ={<AdminPage/>}></Route>
+        <Route path="/forgot-password" element ={<ForgotPasswordPage/>}></Route>
+        <Route path="/orders" element ={<MainLayout><MyOrdersPage/></MainLayout>}></Route>
+      
+      </Routes>
+    </div>
+     
+     </BrowserRouter>
+  </GoogleOAuthProvider>  
   )
 }
 
